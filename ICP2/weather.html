@@ -1,0 +1,65 @@
+<html>
+<head>
+    <style>
+        .weatherModule {
+            background: #f2f2f2;
+            height: 150px;
+            width: 250px;
+            border: 1px dashed #ccc;
+            padding: 1em;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"
+            type="application/javascript"></script>
+</head>
+<body>
+<div ng-app="weather" ng-controller="weatherctrl">
+    <br/>
+    <br/>
+    <label>City: </label>
+    <input type="text" ng-model="city" placeholder="Kansas City">
+    <br/>
+    <br/>
+    <label>State(Abrv.): </label>
+    <input type="text" ng-model="state" placeholder="KS">
+    <br/>
+    <br/>
+    <button id="btn" ng-click="getWeather(city, state)"> Show Weather</button>
+    <br/>
+    <br/>
+    <div ng-repeat="x in weatherHours" class="weatherModule">
+        {{x.currentWeather}}
+        <br/>
+        <img src={{x.currentIcon}}>
+    </div>
+</div>
+
+<script>
+    angular.module('weather', [])
+        .controller('weatherctrl', function ($scope, $http) {
+            $scope.getWeather = function (city, state) {
+                $http.get('http://api.wunderground.com/api/4bbbc25f4f5946dd/hourly/q/' + state + '/' + city + '.json').success(function (data) {
+                    hours = data.hourly_forecast;
+                    var myArray = [];
+                    for (var i = 0; i < hours.length && i < 6; i++) {
+                        time = hours[i].FCTTIME.civil;
+                        temp = hours[i].temp.english;
+                        icon = hours[i].icon_url;
+                        weather = hours[i].wx;
+                        myArray.push({
+                            currentWeather: time + ": Temperature in " + city + " is " + temp + " F and " + weather,
+                            currentIcon: icon
+                        })
+                    }
+                    $scope.weatherHours = myArray;
+                })
+            }
+
+        });
+</script>
+</body>
+</html>
