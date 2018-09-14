@@ -1,0 +1,7 @@
+#Internal package file, do not edit.
+#Fri Sep 14 14:54:02 CDT 2018
+0.baseType=DIRECTORY
+0.base=/home/jack/CS5551_team13student14_icp/ICP4/TranslateApp/app/build/intermediates/transforms/dexMerger/debug/18
+0.path=classes.dex
+0.set=DEX
+count=1

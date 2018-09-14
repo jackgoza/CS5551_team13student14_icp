@@ -1,0 +1,4 @@
+#Fri Sep 14 14:46:55 CDT 2018
+base.0=/home/jack/CS5551_team13student14_icp/ICP4/TranslateApp/app/build/intermediates/transforms/dexMerger/debug/0
+path.0=classes.dex
+renamed.0=classes.dex
